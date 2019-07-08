@@ -5,45 +5,51 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
         tools:context=".MainActivity">
 
     <EditText
+            android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:hint="Search!"
+            android:hint="  Search!"
             android:textSize="20sp"
             android:id="@+id/eTextS"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/custome_edit_text"
+            android:drawableLeft="@drawable/ic_search"/>
 
-    <TextView
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
 
     <EditText
             android:hint="Write todo here!"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:id="@+id/eText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="100dp"
+            android:background="@drawable/custome_edit_text_1"
+            android:drawableLeft="@drawable/ic_write"/>
     <LinearLayout
             android:orientation="horizontal"
-            android:layout_margin="10dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <ImageButton
                 android:layout_weight="1"
+                android:background="@drawable/btn_round"
                 android:src="@android:drawable/ic_input_add"
                 android:id="@+id/btnAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <ImageButton
+                android:background="@color/colorPrimary"
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_sort_by_size"
                 android:id="@+id/btnSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <ImageButton
+                android:background="@drawable/btn_round_1"
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_delete"
                 android:id="@+id/btnDelet"
