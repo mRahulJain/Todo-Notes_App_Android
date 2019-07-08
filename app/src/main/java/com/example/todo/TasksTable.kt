@@ -45,8 +45,36 @@ class TasksTable {
             db.delete(TABLE_NAME, "done=1", null)
         }
 
-        fun deletSTask(db: SQLiteDatabase, v : Int) {
-            db.delete(TABLE_NAME, "id = v", null)
+        fun deletSTask(db: SQLiteDatabase, v : Int?) : ArrayList<Task> {
+            db.delete(TABLE_NAME, "id = '$v'", null)
+
+            val tasks = ArrayList<Task>()
+
+            val cursor = db.query(
+                TABLE_NAME,
+                arrayOf("id", "task", "done"),
+                null, null, //where
+                null, // group by
+                null, //having
+                null //order
+            )
+
+            cursor.moveToFirst()
+
+            val idCol = cursor.getColumnIndex("id")
+            val taskCol = cursor.getColumnIndex("task")
+            val doneCol = cursor.getColumnIndex("done")
+
+            while (cursor.moveToNext()) {
+                val task = Task(
+                    cursor.getInt(idCol),
+                    cursor.getString(taskCol),
+                    cursor.getInt(doneCol) == 1
+                )
+                tasks.add(task)
+            }
+            cursor.close()
+            return tasks
         }
 
         fun sortTask(db : SQLiteDatabase) : ArrayList<Task> {
