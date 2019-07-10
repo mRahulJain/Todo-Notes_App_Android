@@ -1,6 +1,7 @@
 package com.example.todo
 
 import android.content.Context
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.os.Bundle
@@ -13,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.list_item.*
+import kotlin.check
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         val taskAdapter = TaskAdapter(tasks)
 
         todoView.adapter = taskAdapter
+
+        notes.setOnClickListener {
+            var intent = Intent(this, NotesActivity::class.java)
+            startActivity(intent)
+        }
 
         btnAdd.setOnClickListener {
             val data = eText.text.toString()
@@ -92,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 val thisTask = taskAdapter.getItem(position)
                 thisTask.done = !thisTask.done
+                check.isChecked = thisTask.done
                 TasksTable.updateTask(tasksDb, thisTask)
                 tasks = TasksTable.getAllTasks(tasksDb)
                 taskAdapter.updateTasks(tasks)
@@ -112,8 +121,10 @@ class MainActivity : AppCompatActivity() {
             view.findViewById<TextView>(R.id.tView).text = getItem(position).task
             if(getItem(position).done) {
                 view.findViewById<TextView>(R.id.tView).setTextColor(Color.GRAY)
+                view.findViewById<CheckBox>(R.id.check).isChecked = true
             } else {
                 view.findViewById<TextView>(R.id.tView).setTextColor(Color.BLACK)
+                view.findViewById<CheckBox>(R.id.check).isChecked = false
             }
 
             view.findViewById<ImageButton>(R.id.btnD).setOnClickListener {

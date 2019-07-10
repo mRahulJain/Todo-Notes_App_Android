@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:id="@+id/comp"
         android:descendantFocusability="blocksDescendants"
         android:layout_height="wrap_content">
+    <CheckBox
+            android:id="@+id/check"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:buttonTint="@color/colorGray"
+            android:layout_height="wrap_content"/>
     <TextView
             android:layout_marginLeft="10dp"
             android:layout_gravity="center"
@@ -15,13 +22,13 @@
             android:id="@+id/tView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <ImageButton
-                android:layout_marginRight="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:layout_gravity="center|right"
-                android:src="@android:drawable/ic_input_delete"
-                android:id="@+id/btnD"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+    <ImageButton
+            android:layout_marginRight="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_gravity="center|right"
+            android:src="@android:drawable/ic_input_delete"
+            android:id="@+id/btnD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

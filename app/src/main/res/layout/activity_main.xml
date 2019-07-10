@@ -57,12 +57,26 @@
                 android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <ListView
-            android:id="@+id/todoView"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+        <ListView
+                android:id="@+id/todoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </ListView>
+        </ListView>
 
-
+        <Button
+                android:textColor="@color/colorCyan"
+                android:textSize="15sp"
+                android:background="@drawable/btn_notes"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_gravity="bottom|right"
+                android:id="@+id/notes"
+                android:text="NOTES"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+    </FrameLayout>
 </LinearLayout>
