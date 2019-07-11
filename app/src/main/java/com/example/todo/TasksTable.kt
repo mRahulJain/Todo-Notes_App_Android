@@ -65,14 +65,14 @@ class TasksTable {
             val taskCol = cursor.getColumnIndex("task")
             val doneCol = cursor.getColumnIndex("done")
 
-            while (cursor.moveToNext()) {
+            do  {
                 val task = Task(
                     cursor.getInt(idCol),
                     cursor.getString(taskCol),
                     cursor.getInt(doneCol) == 1
                 )
                 tasks.add(task)
-            }
+            } while (cursor.moveToNext())
             cursor.close()
             return tasks
         }
@@ -95,14 +95,14 @@ class TasksTable {
             val taskCol = cursor.getColumnIndex("task")
             val doneCol = cursor.getColumnIndex("done")
 
-            while (cursor.moveToNext()) {
+            do  {
                 val task = Task(
                     cursor.getInt(idCol),
                     cursor.getString(taskCol),
                     cursor.getInt(doneCol) == 1
                 )
                 tasks.add(task)
-            }
+            } while (cursor.moveToNext())
             cursor.close()
             return tasks
         }
@@ -125,14 +125,14 @@ class TasksTable {
             val taskCol = cursor.getColumnIndex("task")
             val doneCol = cursor.getColumnIndex("done")
 
-            while (cursor.moveToNext()) {
+            do  {
                 val task = Task(
                     cursor.getInt(idCol),
                     cursor.getString(taskCol),
                     cursor.getInt(doneCol) == 1
                 )
                 tasks.add(task)
-            }
+            } while (cursor.moveToNext())
             cursor.close()
             return tasks
         }
@@ -156,14 +156,14 @@ class TasksTable {
             val taskCol = cursor.getColumnIndex("task")
             val doneCol = cursor.getColumnIndex("done")
 
-            while (cursor.moveToNext()) {
+            do  {
                 val task = Task(
                     cursor.getInt(idCol),
                     cursor.getString(taskCol),
                     cursor.getInt(doneCol) == 1
                 )
                 tasks.add(task)
-            }
+            } while (cursor.moveToNext())
             cursor.close()
             return tasks
         }

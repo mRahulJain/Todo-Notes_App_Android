@@ -56,14 +56,14 @@ class NotesTable {
             val titleCol = cursor.getColumnIndex("title")
             val bodyCol = cursor.getColumnIndex("body")
 
-            while (cursor.moveToNext()) {
+            do  {
                 val note = Notes(
                     cursor.getInt(idCol),
                     cursor.getString(titleCol),
                     cursor.getString(bodyCol)
                 )
                 notes.add(note)
-            }
+            } while (cursor.moveToNext())
             cursor.close()
             return notes
         }
@@ -87,14 +87,14 @@ class NotesTable {
             val titleCol = cursor.getColumnIndex("title")
             val bodyCol = cursor.getColumnIndex("body")
 
-            while (cursor.moveToNext()) {
+            do  {
                 val note = Notes(
                     cursor.getInt(idCol),
                     cursor.getString(titleCol),
                     cursor.getString(bodyCol)
                 )
                 notes.add(note)
-            }
+            } while (cursor.moveToNext())
             cursor.close()
             return notes
         }
@@ -118,14 +118,14 @@ class NotesTable {
             val titleCol = cursor.getColumnIndex("title")
             val bodyCol = cursor.getColumnIndex("body")
 
-            while (cursor.moveToNext()) {
+            do  {
                 val note = Notes(
                     cursor.getInt(idCol),
                     cursor.getString(titleCol),
                     cursor.getString(bodyCol)
                 )
                 notes.add(note)
-            }
+            } while (cursor.moveToNext())
             cursor.close()
             return notes
         }
