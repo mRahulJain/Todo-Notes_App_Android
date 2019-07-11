@@ -24,6 +24,7 @@ class Notes2Activity : AppCompatActivity() {
             } else {
                 intent.putExtra("title", title)
                 intent.putExtra("body", body)
+                intent.putExtra("count", "NotMain")
                 startActivity(intent)
                 finish()
             }

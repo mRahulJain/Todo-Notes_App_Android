@@ -14,8 +14,32 @@
             android:text="Notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:hint="  Search!"
+                android:textSize="20sp"
+                android:id="@+id/SeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custome_edit_text"
+                android:drawableLeft="@drawable/ic_search"/>
+        <ImageButton
+                android:id="@+id/deletAll"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:src="@drawable/ic_clear_all"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+    </LinearLayout>
 
     <FrameLayout
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

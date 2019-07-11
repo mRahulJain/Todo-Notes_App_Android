@@ -1,22 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
 
-    <TextView
-            android:id="@+id/title"
-            android:padding="5dp"
-            tools:text ="Example"
-            android:textSize="40sp"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+    <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    <TextView
-            android:id="@+id/body"
-            android:padding="5dp"
-            tools:text ="Example"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
 
-</LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/title"
+                    android:background="@color/colorPrimary"
+                    android:padding="5dp"
+                    tools:text ="Example"
+                    android:textSize="40sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <ImageButton
+                    android:id="@+id/deletS"
+                    android:background="@drawable/ic_clear_black_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <TextView
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:id="@+id/body"
+                android:padding="5dp"
+                tools:text ="Example"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

@@ -32,6 +32,73 @@ class NotesTable {
 
         }
 
+        fun deletAll(db: SQLiteDatabase) {
+            db.delete(NotesTable.TABLE_NAME, null, null)
+        }
+
+        fun deletS(db: SQLiteDatabase, v : Int?): ArrayList<Notes> {
+            db.delete(NotesTable.TABLE_NAME, "id = '$v'", null)
+
+            val notes = ArrayList<Notes>()
+
+            val cursor = db.query(
+                TABLE_NAME,
+                arrayOf("id", "title", "body"),
+                null, null, //where
+                null, // group by
+                null, //having
+                null //order
+            )
+
+            cursor.moveToFirst()
+
+            val idCol = cursor.getColumnIndex("id")
+            val titleCol = cursor.getColumnIndex("title")
+            val bodyCol = cursor.getColumnIndex("body")
+
+            while (cursor.moveToNext()) {
+                val note = Notes(
+                    cursor.getInt(idCol),
+                    cursor.getString(titleCol),
+                    cursor.getString(bodyCol)
+                )
+                notes.add(note)
+            }
+            cursor.close()
+            return notes
+        }
+
+        fun search(db: SQLiteDatabase, v : String): ArrayList<Notes> {
+
+            val notes = ArrayList<Notes>()
+
+            val cursor = db.query(
+                TABLE_NAME,
+                arrayOf("id", "title", "body"),
+                "title LIKE '%$v%' OR body LIKE '%$v%'", null, //where
+                null, // group by
+                null, //having
+                null //order
+            )
+
+            cursor.moveToFirst()
+
+            val idCol = cursor.getColumnIndex("id")
+            val titleCol = cursor.getColumnIndex("title")
+            val bodyCol = cursor.getColumnIndex("body")
+
+            while (cursor.moveToNext()) {
+                val note = Notes(
+                    cursor.getInt(idCol),
+                    cursor.getString(titleCol),
+                    cursor.getString(bodyCol)
+                )
+                notes.add(note)
+            }
+            cursor.close()
+            return notes
+        }
+
         fun getAllTasks(db: SQLiteDatabase): ArrayList<Notes> {
 
             val notes = ArrayList<Notes>()
