@@ -33,11 +33,11 @@ class NotesTable {
         }
 
         fun deletAll(db: SQLiteDatabase) {
-            db.delete(NotesTable.TABLE_NAME, null, null)
+            db.delete(TABLE_NAME, null, null)
         }
 
         fun deletS(db: SQLiteDatabase, v : Int?): ArrayList<Notes> {
-            db.delete(NotesTable.TABLE_NAME, "id = '$v'", null)
+            db.delete(TABLE_NAME, "id = '$v'", null)
 
             val notes = ArrayList<Notes>()
 
@@ -50,21 +50,23 @@ class NotesTable {
                 null //order
             )
 
-            cursor.moveToFirst()
+            if(cursor.count!=0) {
+                cursor.moveToFirst()
 
-            val idCol = cursor.getColumnIndex("id")
-            val titleCol = cursor.getColumnIndex("title")
-            val bodyCol = cursor.getColumnIndex("body")
+                val idCol = cursor.getColumnIndex("id")
+                val titleCol = cursor.getColumnIndex("title")
+                val bodyCol = cursor.getColumnIndex("body")
 
-            do  {
-                val note = Notes(
-                    cursor.getInt(idCol),
-                    cursor.getString(titleCol),
-                    cursor.getString(bodyCol)
-                )
-                notes.add(note)
-            } while (cursor.moveToNext())
-            cursor.close()
+                do  {
+                    val note = Notes(
+                        cursor.getInt(idCol),
+                        cursor.getString(titleCol),
+                        cursor.getString(bodyCol)
+                    )
+                    notes.add(0,note)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
             return notes
         }
 
@@ -81,21 +83,23 @@ class NotesTable {
                 null //order
             )
 
-            cursor.moveToFirst()
+            if(cursor.count!=0) {
+                cursor.moveToFirst()
 
-            val idCol = cursor.getColumnIndex("id")
-            val titleCol = cursor.getColumnIndex("title")
-            val bodyCol = cursor.getColumnIndex("body")
+                val idCol = cursor.getColumnIndex("id")
+                val titleCol = cursor.getColumnIndex("title")
+                val bodyCol = cursor.getColumnIndex("body")
 
-            do  {
-                val note = Notes(
-                    cursor.getInt(idCol),
-                    cursor.getString(titleCol),
-                    cursor.getString(bodyCol)
-                )
-                notes.add(note)
-            } while (cursor.moveToNext())
-            cursor.close()
+                do  {
+                    val note = Notes(
+                        cursor.getInt(idCol),
+                        cursor.getString(titleCol),
+                        cursor.getString(bodyCol)
+                    )
+                    notes.add(note)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
             return notes
         }
 
@@ -112,21 +116,23 @@ class NotesTable {
                 null //order
             )
 
-            cursor.moveToFirst()
+            if(cursor.count!=0) {
+                cursor.moveToFirst()
 
-            val idCol = cursor.getColumnIndex("id")
-            val titleCol = cursor.getColumnIndex("title")
-            val bodyCol = cursor.getColumnIndex("body")
+                val idCol = cursor.getColumnIndex("id")
+                val titleCol = cursor.getColumnIndex("title")
+                val bodyCol = cursor.getColumnIndex("body")
 
-            do  {
-                val note = Notes(
-                    cursor.getInt(idCol),
-                    cursor.getString(titleCol),
-                    cursor.getString(bodyCol)
-                )
-                notes.add(note)
-            } while (cursor.moveToNext())
-            cursor.close()
+                do  {
+                    val note = Notes(
+                        cursor.getInt(idCol),
+                        cursor.getString(titleCol),
+                        cursor.getString(bodyCol)
+                    )
+                    notes.add(0,note)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
             return notes
         }
     }

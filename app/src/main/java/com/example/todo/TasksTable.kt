@@ -59,21 +59,23 @@ class TasksTable {
                 null //order
             )
 
-            cursor.moveToFirst()
+            if(cursor.count!=0) {
+                cursor.moveToFirst()
 
-            val idCol = cursor.getColumnIndex("id")
-            val taskCol = cursor.getColumnIndex("task")
-            val doneCol = cursor.getColumnIndex("done")
+                val idCol = cursor.getColumnIndex("id")
+                val taskCol = cursor.getColumnIndex("task")
+                val doneCol = cursor.getColumnIndex("done")
 
-            do  {
-                val task = Task(
-                    cursor.getInt(idCol),
-                    cursor.getString(taskCol),
-                    cursor.getInt(doneCol) == 1
-                )
-                tasks.add(task)
-            } while (cursor.moveToNext())
-            cursor.close()
+                do  {
+                    val task = Task(
+                        cursor.getInt(idCol),
+                        cursor.getString(taskCol),
+                        cursor.getInt(doneCol) == 1
+                    )
+                    tasks.add(task)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
             return tasks
         }
 
@@ -89,21 +91,23 @@ class TasksTable {
                 "done ASC" //order
             )
 
-            cursor.moveToFirst()
+            if(cursor.count!=0) {
+                cursor.moveToFirst()
 
-            val idCol = cursor.getColumnIndex("id")
-            val taskCol = cursor.getColumnIndex("task")
-            val doneCol = cursor.getColumnIndex("done")
+                val idCol = cursor.getColumnIndex("id")
+                val taskCol = cursor.getColumnIndex("task")
+                val doneCol = cursor.getColumnIndex("done")
 
-            do  {
-                val task = Task(
-                    cursor.getInt(idCol),
-                    cursor.getString(taskCol),
-                    cursor.getInt(doneCol) == 1
-                )
-                tasks.add(task)
-            } while (cursor.moveToNext())
-            cursor.close()
+                do  {
+                    val task = Task(
+                        cursor.getInt(idCol),
+                        cursor.getString(taskCol),
+                        cursor.getInt(doneCol) == 1
+                    )
+                    tasks.add(task)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
             return tasks
         }
 
@@ -119,21 +123,23 @@ class TasksTable {
                 null //order
             )
 
-            cursor.moveToFirst()
+            if(cursor.count!=0) {
+                cursor.moveToFirst()
 
-            val idCol = cursor.getColumnIndex("id")
-            val taskCol = cursor.getColumnIndex("task")
-            val doneCol = cursor.getColumnIndex("done")
+                val idCol = cursor.getColumnIndex("id")
+                val taskCol = cursor.getColumnIndex("task")
+                val doneCol = cursor.getColumnIndex("done")
 
-            do  {
-                val task = Task(
-                    cursor.getInt(idCol),
-                    cursor.getString(taskCol),
-                    cursor.getInt(doneCol) == 1
-                )
-                tasks.add(task)
-            } while (cursor.moveToNext())
-            cursor.close()
+                do  {
+                    val task = Task(
+                        cursor.getInt(idCol),
+                        cursor.getString(taskCol),
+                        cursor.getInt(doneCol) == 1
+                    )
+                    tasks.add(task)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
             return tasks
         }
 
@@ -149,22 +155,24 @@ class TasksTable {
                 null, //having
                 null //order
             )
+            if(cursor.count!=0) {
+                cursor.moveToFirst()
 
-            cursor.moveToFirst()
+                val idCol = cursor.getColumnIndex("id")
+                val taskCol = cursor.getColumnIndex("task")
+                val doneCol = cursor.getColumnIndex("done")
 
-            val idCol = cursor.getColumnIndex("id")
-            val taskCol = cursor.getColumnIndex("task")
-            val doneCol = cursor.getColumnIndex("done")
+                do {
+                    val task = Task(
+                        cursor.getInt(idCol),
+                        cursor.getString(taskCol),
+                        cursor.getInt(doneCol) == 1
+                    )
+                    tasks.add(task)
+                } while (cursor.moveToNext())
+                cursor.close()
 
-            do  {
-                val task = Task(
-                    cursor.getInt(idCol),
-                    cursor.getString(taskCol),
-                    cursor.getInt(doneCol) == 1
-                )
-                tasks.add(task)
-            } while (cursor.moveToNext())
-            cursor.close()
+            }
             return tasks
         }
 

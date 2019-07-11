@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         notes.setOnClickListener {
             var intent = Intent(this, NotesActivity::class.java)
             intent.putExtra("count", "Main")
+            intent.putExtra("check", "false")
             startActivity(intent)
         }
 

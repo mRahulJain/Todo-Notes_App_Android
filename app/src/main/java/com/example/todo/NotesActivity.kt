@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.edit
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,50 +28,35 @@ class NotesActivity : AppCompatActivity() {
     var dbHelper = NoteDbHelper(this)
     lateinit var notesDb : SQLiteDatabase
 
-
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
 
         var count = intent.getStringExtra("count")
-
-//        val prefs = getPreferences(Context.MODE_PRIVATE)
-//        count = prefs.getInt("ACTIVITY_OPEN", count)
-//        count++
-//        prefs.edit {
-//            putInt("ACTIVITY_OPEN", count)
-//        }
-//        Log.d("COUNT", "$count")
-
-        Log.d("count", "OK : $count")
-
+        var check = intent.getStringExtra("check")
 
         notesDb = dbHelper.writableDatabase
 
         if(count=="NotMain") {
             val title = intent.getStringExtra("title")
             val body = intent.getStringExtra("body")
-            NotesTable.insertTask(
-                notesDb,
-                NotesTable.Notes(
-                    null,
-                    title,
-                    body
+                NotesTable.insertTask(
+                    notesDb,
+                    NotesTable.Notes(
+                        null,
+                        title,
+                        body
+                    )
                 )
-            )
-            notes = NotesTable.getAllTasks(notesDb)
-            Log.d("DATA", "NOTES: $notes")
-            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
-            rView.adapter = NoteAdapter(notes)
-        }else {
-            notes = NotesTable.getAllTasks(notesDb)
-            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
-            rView.adapter = NoteAdapter(notes)
         }
+        notes = NotesTable.getAllTasks(notesDb)
+        rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+        rView.adapter = NoteAdapter(notes)
 
         addNote.setOnClickListener {
             var intent = Intent(this@NotesActivity, Notes2Activity::class.java)
+            intent.putExtra("flag", "false")
             startActivity(intent)
             finish()
         }
@@ -100,7 +86,6 @@ class NotesActivity : AppCompatActivity() {
             }
         })
 
-
     }
 
     inner class NoteAdapter(
@@ -127,6 +112,17 @@ class NotesActivity : AppCompatActivity() {
                 notes = NotesTable.deletS(notesDb, v)
                 rView.layoutManager = GridLayoutManager(this@NotesActivity, 2, GridLayoutManager.VERTICAL, false)
                 rView.adapter = NoteAdapter(notes)
+            }
+
+            holder.itemView.parentLayout.setOnClickListener {
+                var intent = Intent(this@NotesActivity, Notes2Activity::class.java)
+                intent.putExtra("title", note.title)
+                intent.putExtra("body", note.body)
+                intent.putExtra("flag", "true")
+                var v = note.id
+                NotesTable.deletS(notesDb, v)
+                startActivity(intent)
+                finish()
             }
         }
 
