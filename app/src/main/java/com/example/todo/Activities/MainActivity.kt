@@ -1,10 +1,18 @@
 package com.example.todo
 
+import android.annotation.SuppressLint
+import android.annotation.TargetApi
+import android.app.*
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,11 +21,65 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.list_item.*
+import java.text.DateFormat
+import java.util.*
 import kotlin.check
+import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    val calendar = Calendar.getInstance()
+    val am by lazy {
+        getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    }
+
+    override fun onTimeSet(timePicker: TimePicker?, hour: Int, minute: Int) {
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+
+        nonRepeatingAlarms(calendar)
+
+        Log.d("DATEENTERED", "${calendar.get(Calendar.HOUR_OF_DAY)} : ${calendar.get(Calendar.MINUTE)}")
+    }
+
+    override fun onDateSet(datePicker: DatePicker?, year: Int, month: Int, date: Int) {
+        calendar.set(Calendar.YEAR , year)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.DAY_OF_MONTH, date)
+        Log.d(
+            "DATEENTERED",
+            "${calendar.get(Calendar.YEAR)}/${calendar.get(Calendar.MONTH)}/${calendar.get(Calendar.DAY_OF_MONTH)}"
+        )
+
+        val d = DateFormat.getDateInstance().format(calendar.time)
+        Log.d("DATEENTERED", "$d")
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private fun nonRepeatingAlarms(calendar: Calendar) {
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pi = PendingIntent.getBroadcast(
+            this,
+            1,
+            intent,
+            PendingIntent.FLAG_NO_CREATE
+        )
+
+        if(pi == null) {
+            Log.d("CHECKINGHERE", "pi is null")
+        }
+
+        am.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pi
+        )
+    }
 
     var tasks = arrayListOf<TasksTable.Task>()
     var dbHelper = MyDbHelper(this)
@@ -127,6 +189,14 @@ class MainActivity : AppCompatActivity() {
             } else {
                 view.findViewById<TextView>(R.id.tView).setTextColor(Color.BLACK)
                 view.findViewById<CheckBox>(R.id.check).isChecked = false
+            }
+
+            view.findViewById<ImageButton>(R.id.setAlarm).setOnClickListener {
+                val timePicker = TimePickerFragment(this@MainActivity)
+                timePicker.show(supportFragmentManager, "Time picker")
+
+                val datePicker = DatePickerFragment(this@MainActivity)
+                datePicker.show(supportFragmentManager, "Date picker")
             }
 
             view.findViewById<ImageButton>(R.id.btnD).setOnClickListener {
