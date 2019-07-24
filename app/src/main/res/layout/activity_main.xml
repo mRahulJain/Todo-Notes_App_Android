@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:id="@+id/parentL"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         tools:context=".MainActivity">
@@ -14,6 +15,7 @@
             android:hint="  Search!"
             android:textSize="20sp"
             android:id="@+id/eTextS"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custome_edit_text"
@@ -40,23 +42,29 @@
                 android:src="@android:drawable/ic_input_add"
                 android:id="@+id/btnAdd"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
         <ImageButton
                 android:background="@color/colorPrimary"
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_sort_by_size"
                 android:id="@+id/btnSort"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
+        <ImageButton
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:src="@drawable/ic_add_alert"
+                android:id="@+id/setAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
         <ImageButton
                 android:background="@drawable/btn_round_1"
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_delete"
                 android:id="@+id/btnDelet"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
     </LinearLayout>
-
     <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

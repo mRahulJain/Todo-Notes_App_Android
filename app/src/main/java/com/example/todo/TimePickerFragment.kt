@@ -2,12 +2,11 @@ package com.example.todo
 
 import android.app.Dialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import java.util.*
 
-class TimePickerFragment(context: Context) : DialogFragment() {
+class TimePickerFragment(context: MainActivity) : DialogFragment() {
     val req = context
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -2,13 +2,13 @@ package com.example.todo
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import java.util.*
 
-class DatePickerFragment(context: Context) : DialogFragment() {
+class DatePickerFragment(context: MainActivity) : DialogFragment() {
     val req = context
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
