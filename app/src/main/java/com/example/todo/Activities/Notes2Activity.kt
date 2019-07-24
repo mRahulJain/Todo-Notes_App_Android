@@ -12,17 +12,21 @@ import kotlinx.android.synthetic.main.activity_notes2.*
 
 class Notes2Activity : AppCompatActivity() {
 
+    lateinit var flag : String
+    lateinit var head : String
+    lateinit var content : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes2)
 
-        var key : Int?=-1
-
-        supportActionBar?.title = "Notes"
-        var flag = intent.getStringExtra("flag")
+        toolbar.title = "Notes"
+        flag = intent.getStringExtra("flag")
         if(flag=="true") {
             titleN.setText(intent.getStringExtra("title"))
+            head = titleN.text.toString()
             body.setText(intent.getStringExtra("body"))
+            content = body.text.toString()
         }
 
         done.setOnClickListener {
@@ -38,6 +42,24 @@ class Notes2Activity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+
+
+    }
+
+    override fun onBackPressed() {
+        if(flag == "true") {
+            var intent = Intent(this@Notes2Activity, NotesActivity::class.java)
+            intent.putExtra("title", head)
+            intent.putExtra("body", content)
+            intent.putExtra("count", "NotMain")
+            startActivity(intent)
+            finish()
+        } else {
+            var intent = Intent(this@Notes2Activity, NotesActivity::class.java)
+            intent.putExtra("count", "Main")
+            startActivity(intent)
+            finish()
         }
     }
 }

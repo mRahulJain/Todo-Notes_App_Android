@@ -5,8 +5,9 @@
         android:orientation="vertical"
         android:layout_margin="5dp"
         android:id="@+id/parentLayout"
-        app:cardElevation="5dp"
-        app:cardCornerRadius="4dp"
+        android:elevation="10dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="6dp"
         android:layout_width="match_parent"
         android:layout_height="150dp">
     <LinearLayout
@@ -38,6 +39,7 @@
 
 
         <TextView
+                android:maxLines="4"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:id="@+id/body"

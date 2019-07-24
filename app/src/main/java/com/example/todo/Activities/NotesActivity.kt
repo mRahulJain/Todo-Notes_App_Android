@@ -34,7 +34,6 @@ class NotesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notes)
 
         var count = intent.getStringExtra("count")
-        var check = intent.getStringExtra("check")
 
         notesDb = dbHelper.writableDatabase
 

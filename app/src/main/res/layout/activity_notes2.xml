@@ -7,6 +7,10 @@
         android:orientation="vertical"
         android:background="@color/colorPrimaryDark"
         tools:context=".Notes2Activity">
+    <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Toolbar>
 
     <EditText
             android:background="@drawable/custome_edit_text"
