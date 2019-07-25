@@ -1,8 +1,8 @@
 package com.example.todo
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.*
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -17,13 +17,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.work.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.list_item.*
 import java.text.DateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(),
     DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -33,9 +35,6 @@ class MainActivity : AppCompatActivity(),
     lateinit var tasksDb : SQLiteDatabase
 
     val calendar = Calendar.getInstance()
-    val am by lazy {
-        getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    }
     var pi : PendingIntent? = null
 
     override fun onTimeSet(timePicker: TimePicker?, hour: Int, minute: Int) {
@@ -65,21 +64,29 @@ class MainActivity : AppCompatActivity(),
         timePicker.show(supportFragmentManager, "Time picker")
     }
 
+    @SuppressLint("RestrictedApi")
     @TargetApi(Build.VERSION_CODES.M)
     private fun nonRepeatingAlarms(calendar: Calendar) {
-        val intent = Intent(this@MainActivity, AlarmReceiver::class.java)
-        pi = PendingIntent.getBroadcast(
-            this@MainActivity,
-            1,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+//        val constraints = Constraints.Builder().apply {
+//            setRequiredNetworkType(NetworkType.METERED)
+//            setRequiresCharging(true)
+//            setRequiresDeviceIdle(false)
+//            setRequiresStorageNotLow(true)
+//        }.build()
 
-        am.setExact(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            pi
-        )
+        val currentCalendar = Calendar.getInstance()
+
+        val diff = TimeUnit.MILLISECONDS.toDays(currentCalendar.timeInMillis - calendar.timeInMillis)
+        var diffY = abs(currentCalendar.timeInMillis - calendar.timeInMillis)
+        Log.d("DIFFT", "$diffY")
+
+        val work = OneTimeWorkRequest.Builder(AlarmReceiver::class.java)
+            .setInitialDelay(diffY, TimeUnit.MILLISECONDS)
+            .build()
+
+
+        WorkManager.getInstance(this).enqueue(work)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
