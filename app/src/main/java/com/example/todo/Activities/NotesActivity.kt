@@ -82,6 +82,7 @@ class NotesActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, end: Int) {
+                deletAll.isVisible = false
                 if(s=="") {
                     notes = NotesTable.getAllTasks(notesDb)
                 } else {
