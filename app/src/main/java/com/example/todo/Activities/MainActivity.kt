@@ -21,7 +21,6 @@ import androidx.work.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.list_item.*
-import java.text.DateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -33,9 +32,9 @@ class MainActivity : AppCompatActivity(),
     var tasks = arrayListOf<TasksTable.Task>()
     var dbHelper = MyDbHelper(this)
     lateinit var tasksDb : SQLiteDatabase
+    lateinit var taskAdapter : TaskAdapter
 
     val calendar = Calendar.getInstance()
-    var pi : PendingIntent? = null
 
     override fun onTimeSet(timePicker: TimePicker?, hour: Int, minute: Int) {
         calendar.timeInMillis = System.currentTimeMillis()
@@ -49,16 +48,12 @@ class MainActivity : AppCompatActivity(),
                 "${calendar.get(Calendar.MINUTE)}", Snackbar.LENGTH_LONG).show()
 
         nonRepeatingAlarms(calendar)
-
-        Log.d("DATEENTERED", "${calendar.get(Calendar.HOUR_OF_DAY)} : ${calendar.get(Calendar.MINUTE)}")
     }
 
     override fun onDateSet(datePicker: DatePicker?, year: Int, month: Int, date: Int) {
         calendar.set(Calendar.YEAR , year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, date)
-
-        val d = DateFormat.getDateInstance().format(calendar.time)
 
         val timePicker = TimePickerFragment(this@MainActivity)
         timePicker.show(supportFragmentManager, "Time picker")
@@ -67,26 +62,15 @@ class MainActivity : AppCompatActivity(),
     @SuppressLint("RestrictedApi")
     @TargetApi(Build.VERSION_CODES.M)
     private fun nonRepeatingAlarms(calendar: Calendar) {
-//        val constraints = Constraints.Builder().apply {
-//            setRequiredNetworkType(NetworkType.METERED)
-//            setRequiresCharging(true)
-//            setRequiresDeviceIdle(false)
-//            setRequiresStorageNotLow(true)
-//        }.build()
 
         val currentCalendar = Calendar.getInstance()
-
-        val diff = TimeUnit.MILLISECONDS.toDays(currentCalendar.timeInMillis - calendar.timeInMillis)
         var diffY = abs(currentCalendar.timeInMillis - calendar.timeInMillis)
-        Log.d("DIFFT", "$diffY")
 
         val work = OneTimeWorkRequest.Builder(AlarmReceiver::class.java)
             .setInitialDelay(diffY, TimeUnit.MILLISECONDS)
             .build()
 
-
         WorkManager.getInstance(this).enqueue(work)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +83,7 @@ class MainActivity : AppCompatActivity(),
         tasksDb = dbHelper.writableDatabase
 
         tasks = TasksTable.getAllTasks(tasksDb)
-        val taskAdapter = TaskAdapter(tasks)
+        taskAdapter = TaskAdapter(tasks)
 
         todoView.adapter = taskAdapter
 
@@ -199,10 +183,19 @@ class MainActivity : AppCompatActivity(),
                 view.findViewById<CheckBox>(R.id.check).isChecked = false
             }
 
+            view.findViewById<CheckBox>(R.id.check).setOnClickListener {
+                val thisTask = taskAdapter.getItem(position)
+                thisTask.done = !thisTask.done
+                check.isChecked = thisTask.done
+                TasksTable.updateTask(tasksDb, thisTask)
+                tasks = TasksTable.getAllTasks(tasksDb)
+                taskAdapter.updateTasks(tasks)
+            }
+
             view.findViewById<ImageButton>(R.id.btnD).setOnClickListener {
-                    var v = getItem(position).id
-                    tasks = TasksTable.deletSTask(tasksDb , v)
-                    updateTasks(tasks)
+                var v = getItem(position).id
+                tasks = TasksTable.deletSTask(tasksDb , v)
+                updateTasks(tasks)
             }
 
             return view

@@ -20,7 +20,8 @@ class Notes2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes2)
 
-        toolbar.title = "Notes"
+
+
         flag = intent.getStringExtra("flag")
         if(flag=="true") {
             titleN.setText(intent.getStringExtra("title"))

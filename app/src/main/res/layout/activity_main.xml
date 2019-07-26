@@ -6,10 +6,10 @@
         android:layout_width="match_parent"
         android:id="@+id/parentL"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
         tools:context=".MainActivity">
 
     <EditText
+            android:elevation="@dimen/cardview_compat_inset_shadow"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:hint="  Search!"
@@ -17,47 +17,54 @@
             android:id="@+id/eTextS"
             android:inputType="text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@drawable/custome_edit_text"
             android:drawableLeft="@drawable/ic_search"/>
 
-
-
     <EditText
+            android:elevation="@dimen/cardview_compat_inset_shadow"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:hint="Write todo here!"
             android:textSize="20sp"
             android:id="@+id/eText"
+            android:background="@drawable/custome_edit_text_1"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/custome_edit_text_1"
             android:drawableLeft="@drawable/ic_write"/>
     <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <ImageButton
-                android:layout_weight="1"
+                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:background="@drawable/btn_round"
+                android:layout_weight="1"
                 android:src="@android:drawable/ic_input_add"
                 android:id="@+id/btnAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         <ImageButton
-                android:background="@color/colorPrimary"
+                android:elevation="@dimen/cardview_compat_inset_shadow"
+                android:background="@android:color/white"
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_sort_by_size"
                 android:id="@+id/btnSort"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         <ImageButton
+                android:elevation="@dimen/cardview_compat_inset_shadow"
+                android:background="@android:color/white"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
                 android:src="@drawable/ic_add_alert"
                 android:id="@+id/setAlarm"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
         <ImageButton
+                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:background="@drawable/btn_round_1"
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_delete"
@@ -72,12 +79,12 @@
                 android:id="@+id/todoView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
         </ListView>
 
         <Button
-                android:textColor="@color/colorCyan"
+                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:textSize="15sp"
+                android:textColor="@color/colorPrimary"
                 android:background="@drawable/btn_notes"
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="40dp"

@@ -5,20 +5,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorPrimaryDark"
         tools:context=".NotesActivity">
-    <TextView
-            android:layout_margin="20dp"
-            android:paddingLeft="20dp"
-            android:textSize="25sp"
-            android:text="Notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
     <LinearLayout
+            android:layout_margin="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <EditText
+                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
@@ -26,14 +20,16 @@
                 android:textSize="20sp"
                 android:id="@+id/SeText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="@drawable/custome_edit_text"
                 android:drawableLeft="@drawable/ic_search"/>
         <ImageButton
+                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:id="@+id/deletAll"
+                android:foregroundGravity="center"
                 android:layout_gravity="center"
-                android:background="@color/colorPrimaryDark"
-                android:src="@drawable/ic_clear_all"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="@drawable/custome_edit_text"
                 android:layout_width="50dp"
                 android:layout_height="50dp"/>
     </LinearLayout>
@@ -46,10 +42,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rView"
-                android:background="@color/colorPrimaryDark"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         <ImageButton
+                android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:id="@+id/addNote"
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="20dp"

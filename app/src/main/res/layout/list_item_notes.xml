@@ -12,7 +12,6 @@
         android:layout_height="150dp">
     <LinearLayout
             android:orientation="vertical"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -23,7 +22,6 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/title"
-                    android:background="@color/colorPrimary"
                     android:padding="5dp"
                     tools:text ="Example"
                     android:textSize="40sp"
@@ -41,11 +39,10 @@
         <TextView
                 android:maxLines="4"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
                 android:id="@+id/body"
                 android:padding="5dp"
                 tools:text ="Example"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

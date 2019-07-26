@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 const val DB_NAME1 = "notes.db"
-const val DB_VER1 = 1
+const val DB_VER1 = 2
 
 class NoteDbHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAME1, null, DB_VER1) {
 

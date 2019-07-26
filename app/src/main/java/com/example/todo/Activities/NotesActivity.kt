@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +29,7 @@ class NotesActivity : AppCompatActivity() {
     var notes = arrayListOf<NotesTable.Notes>()
     var dbHelper = NoteDbHelper(this)
     lateinit var notesDb : SQLiteDatabase
+    lateinit var multiDelet : ArrayList<NotesTable.Notes>
 
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,9 @@ class NotesActivity : AppCompatActivity() {
 
         notesDb = dbHelper.writableDatabase
 
+
+        deletAll.isVisible = false
+
         if(count=="NotMain") {
             val title = intent.getStringExtra("title")
             val body = intent.getStringExtra("body")
@@ -45,7 +51,8 @@ class NotesActivity : AppCompatActivity() {
                     NotesTable.Notes(
                         null,
                         title,
-                        body
+                        body,
+                        0
                     )
                 )
         }
@@ -61,10 +68,10 @@ class NotesActivity : AppCompatActivity() {
         }
 
         deletAll.setOnClickListener {
-            NotesTable.deletAll(notesDb)
-            notes = NotesTable.getAllTasks(notesDb)
+            notes = NotesTable.deletAll(multiDelet, notesDb)
             rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
             rView.adapter = NoteAdapter(notes)
+            deletAll.isVisible = false
         }
 
         SeText.addTextChangedListener(object : TextWatcher {
@@ -90,6 +97,7 @@ class NotesActivity : AppCompatActivity() {
     inner class NoteAdapter(
         var notes : ArrayList<NotesTable.Notes>
     ): RecyclerView.Adapter<NoteAdapter.CourseViewHolder>() {
+
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteAdapter.CourseViewHolder {
             val li = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val itemView = li.inflate(R.layout.list_item_notes, parent, false)
@@ -114,15 +122,54 @@ class NotesActivity : AppCompatActivity() {
             }
 
             holder.itemView.parentLayout.setOnClickListener {
-                var intent = Intent(this@NotesActivity, Notes2Activity::class.java)
-                intent.putExtra("title", note.title)
-                intent.putExtra("body", note.body)
-                intent.putExtra("flag", "true")
-                var v = note.id
-                NotesTable.deletS(notesDb, v)
-                startActivity(intent)
-                finish()
+                if(deletAll.isVisible) {
+                    if(note.toggle == 0) {
+                        multiDelet.add(note)
+                        holder.itemView.title.setBackgroundColor(Color.GRAY)
+                        holder.itemView.body.setBackgroundColor(Color.GRAY)
+                        holder.itemView.deletS.setBackgroundColor(Color.GRAY)
+                        note.toggle = 1
+                    } else {
+                        multiDelet.remove(note)
+                        holder.itemView.title.setBackgroundColor(Color.WHITE)
+                        holder.itemView.body.setBackgroundColor(Color.WHITE)
+                        holder.itemView.deletS.setBackgroundColor(Color.WHITE)
+                        if(multiDelet.size == 0) {
+                            deletAll.isVisible = false
+                        }
+                        note.toggle = 0
+                    }
+                } else {
+                    var intent = Intent(this@NotesActivity, Notes2Activity::class.java)
+                    intent.putExtra("title", note.title)
+                    intent.putExtra("body", note.body)
+                    intent.putExtra("flag", "true")
+                    var v = note.id
+                    NotesTable.deletS(notesDb, v)
+                    startActivity(intent)
+                    finish()
+                }
             }
+
+            holder.itemView.parentLayout.setOnLongClickListener(object : View.OnLongClickListener {
+                override fun onLongClick(p0: View?): Boolean {
+                    multiDelet = returnList(position)
+                    note.toggle = 1
+                    deletAll.isVisible = true
+                    holder.itemView.title.setBackgroundColor(Color.GRAY)
+                    holder.itemView.body.setBackgroundColor(Color.GRAY)
+                    holder.itemView.deletS.setBackgroundColor(Color.GRAY)
+                    return true
+                }
+
+            })
+        }
+
+        fun returnList(position : Int) : ArrayList<NotesTable.Notes> {
+            val note = notes[position]
+            val list = ArrayList<NotesTable.Notes>()
+            list.add(note)
+            return list
         }
 
         inner class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
