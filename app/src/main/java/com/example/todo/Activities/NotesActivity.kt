@@ -9,24 +9,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.edit
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_notes.*
-import kotlinx.android.synthetic.main.activity_notes2.*
 import kotlinx.android.synthetic.main.list_item_notes.view.*
 
 class NotesActivity : AppCompatActivity() {
 
     var notes = arrayListOf<NotesTable.Notes>()
+    var notesL = arrayListOf<NotesTable.Notes>()
+    var notesR = arrayListOf<NotesTable.Notes>()
     var dbHelper = NoteDbHelper(this)
     lateinit var notesDb : SQLiteDatabase
     lateinit var multiDelet : ArrayList<NotesTable.Notes>
@@ -57,8 +53,24 @@ class NotesActivity : AppCompatActivity() {
                 )
         }
         notes = NotesTable.getAllTasks(notesDb)
-        rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
-        rView.adapter = NoteAdapter(notes)
+        notesL.clear()
+        notesR.clear()
+        var i = 0
+        for(note in notes) {
+            if(i%2==0) {
+                notesL.add(note)
+                i++
+            } else {
+                notesR.add(note)
+                i++
+            }
+        }
+
+        rViewL.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+        rViewL.adapter = NoteAdapter(notesL)
+
+        rViewR.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+        rViewR.adapter = NoteAdapter(notesR)
 
         addNote.setOnClickListener {
             var intent = Intent(this@NotesActivity, Notes2Activity::class.java)
@@ -69,8 +81,23 @@ class NotesActivity : AppCompatActivity() {
 
         deletAll.setOnClickListener {
             notes = NotesTable.deletAll(multiDelet, notesDb)
-            rView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
-            rView.adapter = NoteAdapter(notes)
+            notesL.clear()
+            notesR.clear()
+            var i = 0
+            for(note in notes) {
+                if(i%2==0) {
+                    notesL.add(note)
+                    i++
+                } else {
+                    notesR.add(note)
+                    i++
+                }
+            }
+            rViewL.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+            rViewL.adapter = NoteAdapter(notesL)
+
+            rViewR.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
+            rViewR.adapter = NoteAdapter(notesR)
             deletAll.isVisible = false
         }
 
@@ -88,8 +115,23 @@ class NotesActivity : AppCompatActivity() {
                 } else {
                     notes = NotesTable.search(notesDb, s.toString())
                 }
-                rView.layoutManager = GridLayoutManager(this@NotesActivity, 2, GridLayoutManager.VERTICAL, false)
-                rView.adapter = NoteAdapter(notes)
+                notesL.clear()
+                notesR.clear()
+                var i = 0
+                for(note in notes) {
+                    if(i%2==0) {
+                        notesL.add(note)
+                        i++
+                    } else {
+                        notesR.add(note)
+                        i++
+                    }
+                }
+                rViewL.layoutManager = GridLayoutManager(this@NotesActivity, 1, GridLayoutManager.VERTICAL, false)
+                rViewL.adapter = NoteAdapter(notesL)
+
+                rViewR.layoutManager = GridLayoutManager(this@NotesActivity, 1, GridLayoutManager.VERTICAL, false)
+                rViewR.adapter = NoteAdapter(notesR)
             }
         })
 
@@ -118,8 +160,23 @@ class NotesActivity : AppCompatActivity() {
             holder.itemView.deletS.setOnClickListener {
                 var v = note.id
                 notes = NotesTable.deletS(notesDb, v)
-                rView.layoutManager = GridLayoutManager(this@NotesActivity, 2, GridLayoutManager.VERTICAL, false)
-                rView.adapter = NoteAdapter(notes)
+                notesL.clear()
+                notesR.clear()
+                var i = 0
+                for(note in notes) {
+                    if(i%2==0) {
+                        notesL.add(note)
+                        i++
+                    } else {
+                        notesR.add(note)
+                        i++
+                    }
+                }
+                rViewL.layoutManager = GridLayoutManager(this@NotesActivity, 1, GridLayoutManager.VERTICAL, false)
+                rViewL.adapter = NoteAdapter(notesL)
+
+                rViewR.layoutManager = GridLayoutManager(this@NotesActivity, 1, GridLayoutManager.VERTICAL, false)
+                rViewR.adapter = NoteAdapter(notesR)
             }
 
             holder.itemView.parentLayout.setOnClickListener {

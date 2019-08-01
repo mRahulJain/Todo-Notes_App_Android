@@ -39,11 +39,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rView"
+        <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_weight="1"
+                    android:id="@+id/rViewL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rViewR"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+
         <ImageButton
                 android:elevation="@dimen/cardview_compat_inset_shadow"
                 android:id="@+id/addNote"
