@@ -1,10 +1,12 @@
 # Todo
 An android OS supported app to store your to-do's and with a feature to set alarm. <br>
-<p>
-<h1> Single Player</h1>
-<img src="https://github.com/mRahulJain/TicTacToe/blob/master/app/App_Video/20190726_172810.gif" width="280" height="490"/>
-</p>
-<p>
-<h1> Double Player</h1>
-<img src="https://github.com/mRahulJain/TicTacToe/blob/master/app/App_Video/20190726_173228.gif" width="280" height="490"/>
+<h1> Working </h>
+<p> 
+<img src="https://github.com/mRahulJain/Todo-Notes_App_Android/blob/master/app/App_Video/Todo/20190727_230246.gif" width="280" height="490"/>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+<img src="https://github.com/mRahulJain/Todo-Notes_App_Android/blob/master/app/App_Video/Todo/20190727_230406.gif" width="280" height="490"/>
+ <br> <br> <br>
+<img src="https://github.com/mRahulJain/Todo-Notes_App_Android/blob/master/app/App_Video/Todo/20190727_230529.gif" width="280" height="490"/>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<img src="https://github.com/mRahulJain/Todo-Notes_App_Android/blob/master/app/App_Video/Todo/20190727_230657.gif" width="280" height="490"/>
 </p>
